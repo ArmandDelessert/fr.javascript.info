@@ -1,4 +1,4 @@
-# Introduction: callbacks
+# Introduction : callbacks
 
 ```warn header="Nous utilisons ici des méthodes du navigateur dans les exemples"
 Pour démontrer l'utilisation des callbacks, des promesses et d'autres concepts abstraits, nous utiliserons certaines méthodes du navigateur : plus précisément, nous chargerons des scripts et effectuerons des manipulations simples de documents.
@@ -14,7 +14,7 @@ Par exemple, une de ces fonctions est la fonction `setTimeout`.
 
 Il existe d'autres exemples concrets d'actions asynchrones, par exemple le chargement de scripts et de modules (nous les aborderons dans les chapitres suivants).
 
-Regardez la fonction `loadScript(src)`, qui charge un script avec le `src` donné:
+Regardez la fonction `loadScript(src)`, qui charge un script avec le `src` donné :
 
 ```js
 function loadScript(src) {
@@ -48,13 +48,13 @@ loadScript('/my/script.js');
 
 Disons que nous devons utiliser le nouveau script dès qu'il est chargé. Il déclare de nouvelles fonctions, et nous voulons les exécuter.
 
-Mais si nous le faisons immédiatement après l'appel `loadScript(...)`, cela ne fonctionnera pas:
+Mais si nous le faisons immédiatement après l'appel `loadScript(...)`, cela ne fonctionnera pas :
 
 ```js
 loadScript('/my/script.js'); // le script a "function newFunction() {…}"
 
 *!*
-newFunction(); // aucune fonction de ce type!
+newFunction(); // aucune fonction de ce type !
 */!*
 ```
 
@@ -77,7 +77,7 @@ function loadScript(src, *!*callback*/!*) {
 
 L'événement `onload` est décrit dans l'article <info:onload-onerror#loading-a-script>, il exécute essentiellement une fonction après le chargement et l'exécution du script.
 
-Maintenant, si nous voulons appeler de nouvelles fonctions depuis le script, nous devons l'écrire dans le callback:
+Maintenant, si nous voulons appeler de nouvelles fonctions depuis le script, nous devons l'écrire dans le callback :
 
 ```js
 loadScript('/my/script.js', function() {
@@ -87,7 +87,7 @@ loadScript('/my/script.js', function() {
 });
 ```
 
-C'est l'idée: le deuxième argument est une fonction (généralement anonyme) qui s'exécute lorsque l'action est terminée.
+C'est l'idée : le deuxième argument est une fonction (généralement anonyme) qui s'exécute lorsque l'action est terminée.
 
 Voici un exemple exécutable avec un vrai script :
 
@@ -113,9 +113,9 @@ Ici nous l'avons fait dans `loadScript`, mais bien sûr c'est une approche gén�
 
 ## Callback imbriqué
 
-Comment charger deux scripts de manière séquentielle: le premier, puis le second après lui ?
+Comment charger deux scripts de manière séquentielle ? Le premier, puis le second après lui ?
 
-La solution naturelle serait de placer le second appel `loadScript` à l'intérieur du callback, comme ceci:
+La solution naturelle serait de placer le second appel `loadScript` à l'intérieur du callback, comme ceci :
 
 ```js
 loadScript('/my/script.js', function(script) {
@@ -175,7 +175,8 @@ function loadScript(src, callback) {
 
 Il appelle `callback(null, script)` en cas de chargement réussi et `callback(error)` dans le cas contraire.
 
-L'utilisation:
+L'utilisation :
+
 ```js
 loadScript('/my/script.js', function(error, script) {
   if (error) {
@@ -188,9 +189,10 @@ loadScript('/my/script.js', function(error, script) {
 
 Une fois encore, la recette que nous avons utilisée pour `loadScript` est en fait assez commune. C'est le style "error-first callback".
 
-La convention est:
+La convention est :
+
 1. Le premier argument de la `callback` est réservé pour une erreur si elle se produit. Ensuite, `callback(err)` est appelé.
-2. Le deuxième argument (et les suivants si nécessaire) sont pour le résultat réussi. Ensuite, `callback(null, result1, result2...)` est appelé.
+2. Le deuxième argument (et les suivants si nécessaire) sont pour le résultat réussi. Ensuite, `callback(null, result1, result2, ...)` est appelé.
 
 Ainsi, la fonction unique `callback` est utilisée à la fois pour signaler les erreurs et pour renvoyer les résultats.
 
@@ -198,11 +200,10 @@ Ainsi, la fonction unique `callback` est utilisée à la fois pour signaler les 
 
 À première vue, il s'agit d'un moyen viable de codage asynchrone. Et c'est effectivement le cas. Pour un ou peut-être deux appels imbriqués, cela semble correct.
 
-Mais pour de multiples actions asynchrones qui se succèdent, nous aurons un code comme celui-ci:
+Mais pour de multiples actions asynchrones qui se succèdent, nous aurons un code comme celui-ci :
 
 ```js
 loadScript('1.js', function(error, script) {
-
   if (error) {
     handleError(error);
   } else {
@@ -228,9 +229,10 @@ loadScript('1.js', function(error, script) {
 });
 ```
 
-Dans le code ci-dessus:
-1. Nous chargeons `1.js`, puis s'il n'y a pas d'erreur …
-2. Nous chargeons `2.js`, puis s'il n'y a pas d'erreur …
+Dans le code ci-dessus :
+
+1. Nous chargeons `1.js`, puis s'il n'y a pas d'erreur…
+2. Nous chargeons `2.js`, puis s'il n'y a pas d'erreur…
 3. Nous chargeons `3.js`, puis s'il n'y a pas d'erreur -- fait autre chose `(*)`.
 
 Au fur et à mesure que les appels deviennent plus imbriqués, le code devient plus profond et de plus en plus difficile à gérer, surtout si nous avons du vrai code au lieu de `...` qui peut inclure plus de boucles, des déclarations conditionnelles et ainsi de suite.
@@ -267,7 +269,7 @@ La "pyramide" d'appels imbriqués croît vers la droite à chaque action asynchr
 
 Donc cette façon de coder n'est pas très bonne.
 
-Nous pouvons essayer d'atténuer le problème en faisant de chaque action une fonction autonome, comme ceci:
+Nous pouvons essayer d'atténuer le problème en faisant de chaque action une fonction autonome, comme ceci :
 
 ```js
 loadScript('1.js', step1);
