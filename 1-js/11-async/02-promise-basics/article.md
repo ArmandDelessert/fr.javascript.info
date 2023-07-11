@@ -1,8 +1,8 @@
 # Promesse (promise)
 
-Imaginez que vous êtes un grand chanteur et les fans vous demandent jour et nuit votre prochaine chanson.
+Imaginez que vous soyez un chanteur de renom et que vos fans vous demandent jour et nuit votre prochaine chanson.
 
-Pour avoir un peu de paix, vous promettez de leur envoyer dès que celle-ci est publiée. Vous donnez à vos fans une liste d'abonnement. Ils peuvent y ajouter leur adresse mail, comme cela, quand le single est sorti, tous les emails reçoivent votre single. Et même si quelque chose arrive, comme un feu dans le studio, et que vous ne pouvez pas sortir le single, ils en seront aussi notifiés.
+Pour avoir un peu de paix, vous leur promettez de leur envoyer la chanson lorsqu'elle sera publiée. Vous donnez à vos fans une liste. Ils peuvent y indiquer leur adresse email, de sorte que lorsque la chanson sera disponible, tous les abonnés la recevront instantanément. Et même si un problème survient, par exemple un incendie dans le studio, et que vous ne pouvez pas publier la chanson, ils en seront aussi avertis.
 
 Tout le monde est content : vous, puisque l'on vous laisse plus tranquille, et vos fans parce qu'ils savent qu'ils ne rateront pas la chanson.
 
@@ -12,9 +12,7 @@ C'est une analogie réelle à un problème courant de programmation :
 2. Un "consommateur de code" qui attend un résultat du "producteur de code" quand il est prêt. Beaucoup de fonctions peuvent avoir besoin de ce résultat. Ces fonctions sont les "fans".
 3. Une *promesse* (promise) est un objet spécial en Javascript qui lie le "producteur de code" et le "consommateur de code" ensemble. En comparant à notre analogie c'est la "liste d'abonnement". Le "producteur de code" prend le temps nécessaire pour produire le résultat promis, et la "promesse" donne le résultat disponible pour le code abonné quand c'est prêt.
 
-
 L'analogie n'est pas la plus correcte, car les promesses en Javascript sont un peu plus complexes qu'une simple liste d'abonnement : elles ont d'autres possibilités mais aussi certaines limitations. Toutefois c'est suffisant pour débuter.
-
 
 La syntaxe du constructeur pour une promesse est :
 
