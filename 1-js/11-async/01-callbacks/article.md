@@ -1,5 +1,3 @@
-
-
 # Introduction: callbacks
 
 ```warn header="Nous utilisons ici des méthodes du navigateur dans les exemples"

@@ -1,4 +1,3 @@
-
 # Chaînage des promesses
 
 Revenons au problème mentionné dans le chapitre <info:callbacks>: nous avons une séquence de tâches asynchrones à effectuer l'une après l'autre. Par exemple, charger des scripts. Comment pouvons-nous bien le coder ?
