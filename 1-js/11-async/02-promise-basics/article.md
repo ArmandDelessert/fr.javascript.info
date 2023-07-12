@@ -8,9 +8,9 @@ Tout le monde est content : vous, puisque l'on vous laisse plus tranquille, et 
 
 C'est une analogie réelle à un problème courant de programmation :
 
-1. Un "producteur de code" qui réalise quelque chose mais nécessite du temps. Par exemple, un code qui charge des données à travers un réseau. C'est le "chanteur".
-2. Un "consommateur de code" qui attend un résultat du "producteur de code" quand il est prêt. Beaucoup de fonctions peuvent avoir besoin de ce résultat. Ces fonctions sont les "fans".
-3. Une *promesse* (promise) est un objet spécial en JavaScript qui lie le "producteur de code" et le "consommateur de code" ensemble. En comparant à notre analogie c'est la "liste d'abonnement". Le "producteur de code" prend le temps nécessaire pour produire le résultat promis, et la "promesse" donne le résultat disponible pour le code abonné quand c'est prêt.
+1. Un "code producteur" qui réalise quelque chose mais nécessite du temps. Par exemple, un code qui charge des données à travers un réseau. C'est le "chanteur".
+2. Un "code consommateur" qui attend un résultat du "code producteur" quand il est prêt. Beaucoup de fonctions peuvent avoir besoin de ce résultat. Ces fonctions sont les "fans".
+3. Une *promesse* (promise) est un objet spécial en JavaScript qui lie le "code producteur" et le "code consommateur" ensemble. En comparant à notre analogie c'est la "liste d'abonnement". Le "code producteur" prend le temps nécessaire pour produire le résultat promis, et la "promesse" donne le résultat disponible pour le code abonné quand c'est prêt.
 
 L'analogie n'est pas la plus correcte, car les promesses en JavaScript sont un peu plus complexes qu'une simple liste d'abonnement : elles ont d'autres possibilités mais aussi certaines limitations. Toutefois c'est suffisant pour débuter.
 
@@ -18,11 +18,11 @@ La syntaxe du constructeur pour une promesse est :
 
 ```js
 let promise = new Promise(function(resolve, reject) {
-  // L'exécuteur (le code produit, le "chanteur")
+  // L'exécuteur (code producteur, le "chanteur")
 });
 ```
 
-La fonction passée à `new Promise` est appelée l'*exécuteur*. Quand `new Promise` est créée, elle est lancée automatiquement. Elle contient le producteur de code, qui doit produire un résulat final. Dans l'analogie ci-dessus : l'exécuteur est le "chanteur".
+La fonction passée à `new Promise` est appelée l'*exécuteur*. Quand `new Promise` est créée, elle est lancée automatiquement. Elle contient le code producteur, qui doit produire un résulat final. Dans l'analogie ci-dessus : l'exécuteur est le "chanteur".
 
 Ses arguments `resolve` (tenir) et `reject` (rompre) sont les fonctions de retour directement fournies par JavaScript. Notre code est inclus seulement dans l'exécuteur.
 
@@ -44,7 +44,7 @@ Ainsi l'exécuteur changera la promesse à un de ces états :
 
 Plus tard nous verrons comment les "fans" peuvent s'abonner à ces changements.
 
-Voici un exemple d'un constructeur d'une promesse et d'une fonction exécutrice simple avec un "code produit" qui prend du temps (utilisant `setTimeout`) :
+Voici un exemple d'un constructeur d'une promesse et d'une fonction exécutrice simple avec un "code producteur" qui prend du temps (utilisant `setTimeout`) :
 
 ```js run
 let promise = new Promise(function(resolve, reject) {
@@ -54,6 +54,7 @@ let promise = new Promise(function(resolve, reject) {
   setTimeout(() => *!*resolve("done")*/!*, 1000);
 });
 ```
+
 On peut voir deux choses en lançant le code ci-dessus :
 
 1. L'exécuteur est appelé automatiquement et immédiatement (avec `new Promise`).
@@ -80,7 +81,7 @@ L'appel a `reject(...)` change l'object promesse à l'état `"rejected"` :
 
 Pour résumer, l'exécuteur devrait réaliser une tâche (normalement quelque chose qui prend du temps) puis appelle `resolve` ou `reject` pour changer l'état de l'objet promesse correspondant.
 
-Une promesse qui est soit tenue soit rejetée est appelée "settled" (acquitttée) par opposition à une promesse initialisée à "en attente".
+Une promesse qui est soit tenue soit rejetée est appelée "settled" (acquittée) par opposition à une promesse initialisée à "en attente".
 
 ````smart header="Il ne peut y avoir qu'un seul résultat ou une erreur"
 L'exécuteur devrait appeler seulement une fois `resolve` ou `reject`. N'importe quel changement d'état est définitif.
@@ -128,7 +129,7 @@ Les propriétés `state` et `result` de l'objet `Promise` sont internes. Nous ne
 
 ## Les consommateurs : then, catch
 
-Un objet promesse permet le lien entre l'exécuteur (le "code produit" ou "chanteur") et les fonctions consommatrices (les "fans"), lesquels recevront un résultat ou une erreur. Ces fonctions consommatrices peuvent s'abonner (subscribed) en utilisant les méthodes `.then`, `.catch`.
+Un objet promesse permet le lien entre l'exécuteur (le "code producteur" ou "chanteur") et les fonctions consommatrices (les "fans"), lesquels recevront un résultat ou une erreur. Ces fonctions consommatrices peuvent s'abonner (subscribed) en utilisant les méthodes `.then`, `.catch`.
 
 ### then (alors)
 
