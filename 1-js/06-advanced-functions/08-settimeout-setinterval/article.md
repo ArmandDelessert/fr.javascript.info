@@ -26,7 +26,7 @@ En général, c'est une fonction. Pour des raisons historiques, une chaîne de c
 `delay`
 : La durée d'attente avant l'exécution, en millisecondes (1000ms = 1 seconde), par défaut 0.
 
-`arg1`, `arg2`...
+`arg1`, `arg2`, ...
 : Arguments à passer à la fonction (incompatible avec IE9-).
 
 Par exemple, le code ci-dessous appelle la fonction `sayHi()` une unique fois au bout de 1 seconde :
@@ -71,10 +71,10 @@ setTimeout(() => alert('Bonjour'), 1000);
 Les développeurs novices font parfois l'erreur d'ajouter des parenthèses `()` après la fonction :
 
 ```js
-// Faux!
+// Faux !
 setTimeout(sayHi(), 1000);
 ```
-Cela ne fonctionne pas car `setTimeout` attend une référence à une fonciton. Ici `sayHi()` appelle la fonction et le *résultat de cette exécution* est passé à `setTimeout`. Dans notre cas, le résultat de `sayHi()` est `undefined` (la fonction ne renvoie rien), du coup, rien n'est planifié.
+Cela ne fonctionne pas car `setTimeout` attend une référence à une fonction. Ici `sayHi()` appelle la fonction et le *résultat de cette exécution* est passé à `setTimeout`. Dans notre cas, le résultat de `sayHi()` est `undefined` (la fonction ne renvoie rien), du coup, rien n'est planifié.
 ````
 
 ### Annuler une tâche avec clearTimeout
@@ -106,7 +106,7 @@ Pour les navigateurs, les timers sont décrits dans la [section des timers](http
 
 ## setInterval
 
-La méthode `setInterval` a la même syntaxe que `setTimeout`:
+La méthode `setInterval` a la même syntaxe que `setTimeout` :
 
 ```js
 let timerId = setInterval(func|code, [delay], [arg1], [arg2], ...)
@@ -158,6 +158,7 @@ Le `setTimeout` imbriqué est une méthode plus flexible que `setInterval`. Ains
 Par exemple, on peut avoir besoin d'implémenter un service qui envoie une requête à un serveur toutes les 5 secondes pour récupérer de la donnée, mais dans le cas où le serveur est surchargé, on doit augmenter le délai à 10 secondes, puis 20 secondes, 40 secondes...
 
 Voici le pseudo-code correspondant :
+
 ```js
 let delay = 5000;
 
@@ -174,9 +175,7 @@ let timerId = setTimeout(function request() {
 }, delay);
 ```
 
-Ou par exemple, si les fonction qu'on souhaite planifier demandent beaucoup de ressources CPU, on peut alors mesurer leur temps d'exécution et planifier le prochain appel en fonction.
-
-Et si les fonctions que nous planifions sont gourmandes en ressources processeur, nous pouvons mesurer le temps pris par l'exécution et planifier le prochain appel tôt ou tard.
+Et si les fonctions que nous planifions sont gourmandes en ressources processeur, nous pouvons mesurer le temps pris par l'exécution et planifier le prochain appel plus tôt ou plus tard.
 
 **Un `setTimeout` imbriqué permet de définir le délai entre les exécutions plus précisément que `setInterval`.**
 
@@ -291,11 +290,12 @@ Pour le JavaScript côté serveur, cette limitation n'existe pas, et il existe d
 - Pour annuler l'exécution, nous devons appeler `clearInterval/clearTimeout` avec la valeur renvoyée par `setInterval/setTimeout`.
 - Les appels de `setTimeout` imbriqués sont une alternative plus flexible à `setInterval`, ils permettent de configurer le temps *entre* les exécution plus précisément.
 - L'ordonnancement à délai nul avec `setTimeout(func, 0)` (le même que `setTimeout(func)`) permet de planifier l'exécution "dès que possible, mais seulement une fois que le bloc de code courant a été exécuté".
-- Le navigateur limite le délai minimal pour cinq appels imbriqués ou plus de `setTimeout` ou pour` setInterval` (après le 5ème appel) à 4 ms. C'est pour des raisons historiques.
+- Le navigateur limite le délai minimal pour cinq appels imbriqués ou plus de `setTimeout` ou pour `setInterval` (après le 5ème appel) à 4 ms. C'est pour des raisons historiques.
 
 Veuillez noter que toutes les méthodes de planification ne garantissent pas le délai exact.
 
 Par exemple, le timer interne au navigateur peut être ralenti pour de nombreuses raisons :
+
 - Le CPU est surchargé.
 - L'onglet du navigateur est en tâche de fond.
 - L'ordinateur est en mode économie d'énergie.
