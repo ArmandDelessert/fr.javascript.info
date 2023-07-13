@@ -1,6 +1,4 @@
-
 # Re-résoudre une promesse ?
-
 
 Quel est le résultat du code ci-dessous ?
 

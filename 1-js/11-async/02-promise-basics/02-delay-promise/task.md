@@ -1,4 +1,3 @@
-
 # Un délai avec une promesse
 
 La fonction de base `setTimeout` utilise des fonctions de retour. Créez une alternative avec une promesse.
