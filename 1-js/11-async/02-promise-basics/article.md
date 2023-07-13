@@ -242,8 +242,8 @@ Il existe des différences importantes :
 
 1. Un gestionnaire `finally` n'a pas d'arguments. Dans `finally` nous ne savons pas si la promesse est réussie ou non. Ce n'est pas grave, car notre tâche consiste généralement à effectuer des procédures de finalisation "générales".
 
-    Veuillez jeter un coup d'œil à l'exemple ci-dessus : comme vous pouvez le voir, le gestionnaire "finally" n'a pas d'arguments et le résultat de la promesse est géré par le gestionnaire suivant.
-2. Un gestionnaire "finally" "transmet" le résultat ou l'erreur au prochain gestionnaire approprié.
+    Veuillez jeter un coup d'œil à l'exemple ci-dessus : comme vous pouvez le voir, le gestionnaire `finally` n'a pas d'arguments et le résultat de la promesse est géré par le gestionnaire suivant.
+2. Un gestionnaire `finally` "transmet" le résultat ou l'erreur au prochain gestionnaire approprié.
 
     Par exemple, ici, le résultat est passé de `finally` à `then` :
 
@@ -282,7 +282,7 @@ Pour résumer :
 Ces fonctionnalités sont utiles et permettent aux choses de fonctionner correctement si nous utilisons `finally` comme elles sont censées être utilisées : pour les procédures de nettoyage génériques.
 
 ````smart header="Nous pouvons attacher des gestionnaires aux promesses réglées"
-Si une promesse est en attente, les gestionnaires `.then/catch/finally` attendent son résultat.
+Si une promesse est en attente, les gestionnaires `.then`/`catch`/`finally` attendent son résultat.
 
 Parfois, il se peut qu'une promesse soit déjà réglée lorsque nous y ajoutons un gestionnaire.
 
@@ -300,7 +300,7 @@ Notez que cela rend les promesses plus puissantes que le scénario réel de "lis
 Les promesses sont plus flexibles. Nous pouvons ajouter des gestionnaires à tout moment : si le résultat est déjà là, ils s'exécutent simplement.
 ````
 
-## Example: loadScript [#loadscript]
+## Example : loadScript [#loadscript]
 
 Ensuite, voyons des exemples plus pratiques pour lesquels les promesses nous aident à écrire du code asynchrone.
 
@@ -338,7 +338,7 @@ function loadScript(src) {
 }
 ```
 
-Utilisation:
+Utilisation :
 
 ```js run
 let promise = loadScript("https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.js");
@@ -354,8 +354,8 @@ promise.then(script => alert('Another handler...'));
 On peut remarquer immédiatement quelques avantages par rapport aux fonctions de retour :
 
 | Promesses | Fonctions de retour |
-|-----------|----------------------|
+|-----------|---------------------|
 | Les promesses nous permettent de faire des choses dans un ordre naturel. D'abord, nous lançons `loadScript(script)`, puis avec `.then` nous codons quoi faire avec le résultat. | Nous devons avoir une fonction de retour à notre disposition quand nous appelons `loadScript(script, callback)`. En d'autres termes, nous devons savoir quoi faire du résultat *avant* que `loadScript` soit appelé. |
-| Nous pouvons appeler `.then` sur une promesse autant de temps fois que nécessaire. À chaque fois, nous ajoutons un nouveau "fan", une nouvelle fonction s'abonnant à la "liste d'abonnés". Nous en verrons plus à ce sujet dans le prochain chapitre : [](info:promise-chaining). | Il ne peut y avoir qu'une seule fonction de retour. |
+| Nous pouvons appeler `.then` sur une promesse autant de fois que nécessaire. À chaque fois, nous ajoutons un nouveau "fan", une nouvelle fonction s'abonnant à la "liste d'abonnés". Nous en verrons plus à ce sujet dans le prochain chapitre : [](info:promise-chaining). | Il ne peut y avoir qu'une seule fonction de retour. |
 
 Les promesses nous permettent donc d'avoir plus de sens et une meilleure flexibilité. Mais il y a plus. Nous allons voir cela dans les chapitres suivants.
