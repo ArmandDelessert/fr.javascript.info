@@ -34,6 +34,7 @@ new Promise(function(resolve, reject) {
 L'idée est que le résultat est transmis à travers la chaîne de gestionnaires `.then`.
 
 Ici, le flux est :
+
 1. La promesse initiale est résolue en 1 seconde `(*)`,
 2. Ensuite, le gestionnaire `.then` est appelé `(**)`, qui à son tour crée une nouvelle promesse (résolue avec la valeur `2`).
 3. Le `then` suivant `(***)` obtient le résultat du précédent, le traite (double) et le passe au gestionnaire suivant.
@@ -43,7 +44,7 @@ Lorsque le résultat est transmis le long de la chaîne de gestionnaires, nous p
 
 ![](promise-then-chain.svg)
 
-Le tout fonctionne, parce qu’un appel à `.then` renvoie une nouvelle promesse, de sorte que nous puissions appeler le prochain` .then` dessus.
+Le tout fonctionne, parce qu’un appel à `.then` renvoie une nouvelle promesse, de sorte que nous puissions appeler le prochain `.then` dessus.
 
 Lorsqu'un gestionnaire renvoie une valeur, cela devient le résultat de cette promesse. Le prochain `.then` est appelé avec.
 
